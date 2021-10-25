@@ -1,0 +1,250 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12 col-md-6">
+      <div class="card card-small mb-3 cbb border-primary">
+        <div class="card-header text-primary">
+          <div class="media border p-3" style="border-radius:1.5rem">
+            <img
+              src="https://toigingiuvedep.vn/wp-content/uploads/2021/05/hinh-anh-avatar-de-thuong.jpg"
+              class="mr-3 rounded-circle"
+              style="width:60px;height:60px"
+            />
+            <div class="media-body">
+              <h4>
+                <input
+                  type="text"
+                  class="form-control"
+                  [(ngModel)]="team1[0].name"
+                />
+              </h4>
+              <div>Đội trưởng Team 1</div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <ng-container *ngFor="let item of team1; let i = index">
+              <div class="col-6" *ngIf="item.id !== '1-1'">
+                <div class="form-group">
+                  <label for="email{{ item.id }}" class="text-primary"
+                    ><span *ngIf="item.id == '1-1'">Đội trưởng</span>
+                    <span *ngIf="item.id !== '1-1'"
+                      >Thành viên {{ i + 1 }}</span
+                    ></label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="team1[i].name"
+                    id="email{{ item.id }}"
+                  />
+                </div>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-6">
+      <div class="card card-small mb-3 cbb border-danger">
+        <div class="card-header text-danger">
+          <div class="media border p-3" style="border-radius:1.5rem">
+            <img
+              src="https://toigingiuvedep.vn/wp-content/uploads/2021/05/hinh-anh-avatar-de-thuong.jpg"
+              class="mr-3 rounded-circle"
+              style="width:60px;height:60px"
+            />
+            <div class="media-body">
+              <h4>
+                <input
+                  type="text"
+                  class="form-control"
+                  [(ngModel)]="team2[0].name"
+                />
+              </h4>
+              <div>Đội trưởng Team 2</div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <ng-container *ngFor="let item of team2; let i = index">
+              <div class="col-6" *ngIf="item.id !== '2-1'">
+                <div class="form-group">
+                  <label for="email{{ item.id }}" class="text-danger"
+                    ><span *ngIf="item.id == '2-1'">Đội trưởng</span>
+                    <span *ngIf="item.id !== '2-1'"
+                      >Thành viên {{ i + 1 }}</span
+                    ></label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="team2[i].name"
+                    id="email{{ item.id }}"
+                  />
+                </div>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-6">
+      <button
+        class="btn btn-sm btn-warning w-100"
+        (click)="onClickAdd(listMatch.length + 1)"
+      >
+        Tính toán 1 trận
+      </button>
+    </div>
+    <div class="col-6">
+      <button
+        class="btn btn-sm btn-warning w-100"
+        (click)="onClickAdd(listMatch.length + 1, 5)"
+      >
+        Tính toán nhanh 5 trận
+      </button>
+    </div>
+  </div>
+</div>
+<div class="container-fluid my-4">
+  <div class="row">
+    <div class="col-12 mb-4 text-center" *ngIf="listMatch.length > 0">
+      <button class="btn btn-sm btn-danger" (click)="onClickDelete()">
+        Xóa tất cả kết quả
+      </button>
+    </div>
+    <div
+      class="col-12 col-sm-12 col-md-6 col-4-lg m-auto"
+      *ngFor="let item of listMatch"
+    >
+      <div class="card card-small mb-3">
+        <div class="card-header" style="font-size: 20px;">
+          {{ item.name }}
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+            (click)="onClickDelete(item.id)"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-12">
+              <table class="table">
+                <thead>
+                  <tr class="text-center">
+                    <th class="text-primary">Team 1</th>
+                    <th><img [src]="icon" width="20" /></th>
+                    <th class="text-danger">Team 2</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td
+                      class="text-primary align-middle font-weight-bold"
+                      [ngClass]="{
+                        border: item.team01.listChar[0].id === '1-1'
+                      }"
+                    >
+                      {{ item.team01.listChar[0].name }}
+                    </td>
+                    <td class="text-center">Top</td>
+                    <td
+                      class="text-danger align-middle font-weight-bold"
+                      [ngClass]="{
+                        border: item.team02.listChar[0].id === '2-1'
+                      }"
+                    >
+                      {{ item.team02.listChar[0].name }}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      class="text-primary align-middle font-weight-bold"
+                      [ngClass]="{
+                        border: item.team01.listChar[1].id === '1-1'
+                      }"
+                    >
+                      {{ item.team01.listChar[1].name }}
+                    </td>
+                    <td class="text-center">Rừng</td>
+                    <td
+                      class="text-danger align-middle font-weight-bold"
+                      [ngClass]="{
+                        border: item.team02.listChar[1].id === '2-1'
+                      }"
+                    >
+                      {{ item.team02.listChar[1].name }}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      class="text-primary align-middle font-weight-bold"
+                      [ngClass]="{
+                        border: item.team01.listChar[2].id === '1-1'
+                      }"
+                    >
+                      {{ item.team01.listChar[2].name }}
+                    </td>
+                    <td class="text-center">Mid</td>
+                    <td
+                      class="text-danger align-middle font-weight-bold"
+                      [ngClass]="{
+                        border: item.team02.listChar[2].id === '2-1'
+                      }"
+                    >
+                      {{ item.team02.listChar[2].name }}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      class="text-primary align-middle font-weight-bold"
+                      [ngClass]="{
+                        border: item.team01.listChar[3].id === '1-1'
+                      }"
+                    >
+                      {{ item.team01.listChar[3].name }}
+                    </td>
+                    <td class="text-center">AD</td>
+                    <td
+                      class="text-danger align-middle font-weight-bold"
+                      [ngClass]="{
+                        border: item.team02.listChar[3].id === '2-1'
+                      }"
+                    >
+                      {{ item.team02.listChar[3].name }}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      class="text-primary align-middle font-weight-bold"
+                      [ngClass]="{
+                        border: item.team01.listChar[4].id === '1-1'
+                      }"
+                    >
+                      {{ item.team01.listChar[4].name }}
+                    </td>
+                    <td class="text-center">SP</td>
+                    <td
+                      class="text-danger align-middle font-weight-bold"
+                      [ngClass]="{
+                        border: item.team02.listChar[4].id === '2-1'
+                      }"
+                    >
+                      {{ item.team02.listChar[4].name }}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
